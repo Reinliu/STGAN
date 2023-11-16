@@ -1,16 +1,16 @@
 # STGAN
 STGAN: Spectral-temporal sound effects generation with GAN
 
-# Description:
+## Description:
 
 
-# Requirements:
+## Requirements:
 
 
-# Train:
+## Train:
 
 
-# Generate:
+## Generate:
 
 
-# Demo:
+## Demo:
