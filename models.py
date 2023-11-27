@@ -3,7 +3,7 @@ import torch.nn as nn
 freq_res = 64
 
 class SpectrogramGenerator(nn.Module):
-    def __init__(self, n_classes, seq_len, latent_dim=100, loudness_dim=1, hidden_dim=512, n_layers=5):
+    def __init__(self, n_classes, seq_len, latent_dim=100, loudness_dim=1, hidden_dim=512, n_layers=3):
         super(SpectrogramGenerator, self).__init__()
         self.n_classes = n_classes
         self.n_layers = n_layers
@@ -25,9 +25,8 @@ class SpectrogramGenerator(nn.Module):
         self.fc_out = nn.Linear(hidden_dim, freq_res)
 
     def forward(self, z, loudness, labels):
-        # Assuming z is a batch of latent vectors and loudness is a sequence of loudness features
         seq_len = loudness.size(1)  # This should be 400
-
+        z = z.unsqueeze(1).repeat(1, seq_len, 1)
         # Expand the latent space to match the sequence length and concatenate with loudness
         label_emb = self.label_embedding(labels)
         label_emb = label_emb.view(labels.size(0), seq_len, 1)
@@ -74,75 +73,3 @@ class Discriminator(nn.Module):
         d_in = torch.cat((img, labels), 1) # Concatenate along channel dimension
         output = self.model(d_in)
         return output
-
-
-
-# class AudioDiscriminator(nn.Module):
-#     def __init__(self, n_classes):
-#         super(AudioDiscriminator, self).__init__()
-#         self.label_embedding = nn.Sequential(
-#             nn.Embedding(n_classes, n_classes*10),
-#             nn.Linear(n_classes*10, 65536)
-#         )
-#         self.model = nn.Sequential(
-#             nn.Conv1d(2, 64, kernel_size=25, stride=4, padding=12),
-#             nn.LeakyReLU(0.2, inplace=True),
-#             nn.Conv1d(64, 128, kernel_size=25, stride=4, padding=12),
-#             nn.LeakyReLU(0.2, inplace=True),
-#             nn.Conv1d(128, 256, kernel_size=25, stride=4, padding=12),
-#             nn.LeakyReLU(0.2, inplace=True),
-#             nn.Conv1d(256, 512, kernel_size=25, stride=4, padding=12),
-#             nn.LeakyReLU(0.2, inplace=True),
-#             nn.Conv1d(512, 1024, kernel_size=25, stride=4, padding=12),
-#             nn.LeakyReLU(0.2, inplace=True),
-#             nn.Flatten(),
-#             nn.Linear(65536, 1)
-#         )
-
-#     def forward(self, img, labels):
-#         # Expand label embedding to same size as image
-#         img = img.view(img.size(0), 1, img.size(1))
-#         labels = self.label_embedding(labels)
-#         labels = labels.view(labels.size(0), 1, 65536)
-#         # Concatenate label and image
-#         d_in = torch.cat((img, labels), 1) # Concatenate along channel dimension
-#         output = self.model(d_in)
-#         return output
-    
-# class Generator(nn.Module):
-#     def __init__(self, n_classes):
-#         super(Generator, self).__init__()
-#         self.n_classes = n_classes
-
-#         # Embedding for labels
-#         self.label_embedding = nn.Sequential(
-#             nn.Embedding(n_classes, n_classes*10),
-#             nn.Linear(n_classes*10, 100)
-#         )
-
-#         # Transposed Convolution blocks
-#         self.conv_blocks = nn.Sequential(
-#             nn.ConvTranspose1d(2, 4, kernel_size=5, stride=1, padding=2),
-#             nn.LeakyReLU(0.2, inplace=True),
-#             nn.BatchNorm1d(4, 0.8),
-#             nn.ConvTranspose1d(4, 8, kernel_size=5, stride=1, padding=2),
-#             nn.LeakyReLU(0.2, inplace=True),
-#             nn.BatchNorm1d(8, 0.8),
-#             nn.ConvTranspose1d(8, 16, kernel_size=5, stride=1, padding=2),
-#             nn.LeakyReLU(0.2, inplace=True),
-#             nn.BatchNorm1d(16, 0.8),
-#             nn.ConvTranspose1d(16, 32, kernel_size=5, stride=1, padding=2),
-#             nn.LeakyReLU(0.2, inplace=True),
-#             nn.BatchNorm1d(32, 0.8),
-#             nn.ConvTranspose1d(32, 64, kernel_size=5, stride=1, padding=2),
-#             nn.Tanh()
-#         )
-
-#     def forward(self, z, loudness, labels):
-#         # Concatenate label embedding and z
-#         label_embedding = self.label_embedding(labels)
-#         label_embedding = label_embedding.view(labels.size(0), 1, 25, 4)
-#         gen_input = torch.cat((z, loudness), 1)
-#         output = self.conv_blocks(gen_input)
-#         output = output.view(output.size(0), 1, 400, 64)
-#         return output

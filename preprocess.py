@@ -3,7 +3,6 @@ import librosa
 import numpy as np
 from tqdm import tqdm
 import os
-import pathlib
 import torch
 from librosa.filters import mel as librosa_mel_fn
 from effortless_config import Config
@@ -16,7 +15,7 @@ with open(config_file, 'r') as file:
 device = torch.device('cpu')
 
 n_fft=config['n_fft']
-n_mels=config['num_mels']
+n_mels=config['n_mels']
 samplerate=16000
 hop_size=config['hop_size']
 win_size=config['win_size']
@@ -122,7 +121,7 @@ def preprocess_audio(f, n_fft, n_mels, sampling_rate, hop_size, win_size, signal
     return melspecs, loudness, s, label
 
 def main_preprocess(audio_dir, out_dir):
-    files = list(pathlib.Path(audio_dir).rglob("*.wav"))
+    files = sorted(list(pathlib.Path(audio_dir).rglob("*.wav")))
 
     all_melspecs = []
     all_loudness = []
@@ -141,7 +140,7 @@ def main_preprocess(audio_dir, out_dir):
     all_melspecs, min_val, max_val = min_max_normalize(all_melspecs)
     all_melspecs = np.transpose(all_melspecs, (0,1,3,2))
     all_loudness = np.array(all_loudness)
-    all_loudness = np.expand_dims(all_loudness, 1)
+    all_loudness = np.expand_dims(all_loudness, 2)
     all_signals = np.array(all_signals)
     all_signals = np.pad(all_signals, ((0, 0), (0, target_length - signal_length)), mode='constant', constant_values=0)
     print(all_signals.shape)
