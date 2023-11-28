@@ -20,7 +20,9 @@ You should ensure that your dataset folder contains subcategories, because our m
 Run 'python preprocess.py' and it will save the preprocessed features and data into a folder called 'preprocessed'
 
 ## Train:
-Run 'python train.py' to train your model. 
+Run 
+'''python train.py'''
+to train your model. 
 Adjust the save_freq to save your model how many iterations you would like to save.
 This will save the state-dict so you could later load them with torch.
 
