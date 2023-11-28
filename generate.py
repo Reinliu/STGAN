@@ -31,7 +31,7 @@ max_val = np.load('preprocessed/max_val.npy')
 min_val = np.load('preprocessed/min_val.npy')
 
 
-def generate(subfolder, output_base_path, audio_base_path):
+def generate(subfolder, output_base_path, audio_base_path, category):
     audio_path = pathlib.Path(subfolder)
     files = sorted(list(audio_path.rglob("*.wav")))
     
@@ -49,7 +49,7 @@ def generate(subfolder, output_base_path, audio_base_path):
         # Duplicate or interpolate loudness and labels if necessary to match num_samples
         
         with torch.no_grad():
-            label = torch.tensor([0]).to(device)
+            label = torch.tensor([category]).to(device)
             melspec = generator(z, loudness, label).to(device)
 
         # Rescale spectrogram
@@ -84,8 +84,9 @@ if __name__ == "__main__":
     main_folder = '/home/rein/Downloads/development-dataset/'  # Replace with your main directory path
     output_base_path = 'generated/images/images_n_critic_10'  # Base directory for output
     audio_base_path = 'generated/images/audio_n_critic_10'
-
+    category = 0
     for subfolder in pathlib.Path(main_folder).iterdir():
         if subfolder.is_dir():  # Check if it's a directory
             print(f"Processing {subfolder}")
-            generate(subfolder, output_base_path, audio_base_path)
+            generate(subfolder, output_base_path, audio_base_path, category)
+            category +=1
