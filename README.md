@@ -4,10 +4,10 @@ We use RNN for the sound generator. The sound generation is guided and condition
 For the generator loss, we further include a MSE reconstruction loss on the loudness difference between the generated and original Mel Spectrogram.
 
 ## Model architecture
-# Training: 
+### Training: 
 ![image](https://github.com/Reinliu/STGAN/assets/50271800/c10154bb-d875-4c29-904d-0f1eb675ee9c)
 
-# Inference:
+### Inference:
 ![image](https://github.com/Reinliu/STGAN/assets/50271800/aaecfb15-64e7-41ff-8ae4-c70f4b59976f)
 
 
