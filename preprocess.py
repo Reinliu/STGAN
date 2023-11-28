@@ -5,7 +5,6 @@ from tqdm import tqdm
 import os
 import torch
 from librosa.filters import mel as librosa_mel_fn
-from effortless_config import Config
 import json 
    
 config_file = 'config.json'
