@@ -8,7 +8,6 @@ from torchvision.utils import save_image
 from models import SpectrogramGenerator, Discriminator
 from hifigan.__init__ import AttrDict
 import utils
-import auraloss
 import json
 
 config_file = 'config.json'
