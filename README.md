@@ -24,11 +24,17 @@ Run 'python preprocess.py' and it will save the preprocessed features and data i
 
 ## Train:
 Run 
-~~~python train.py~~~
+~~~
+python train.py
+~~~
 to train your model. 
 Adjust the save_freq to save your model how many iterations you would like to save.
 This will save the state-dict so you could later load them with torch.
 
 ## Generate:
-Run the ~~~python generate.py~~~ command to generate a number of audio samples by extracting loudness from an audio folder.
+Run 
+~~~
+python generate.py
+~~~
+command to generate a number of audio samples by extracting loudness from an audio folder.
 This will use the extracted loudness from an audio folder as conditioning input for audio generation. Notice the latent vector is sampled randomly. You could adjust this to generate different outputs.
