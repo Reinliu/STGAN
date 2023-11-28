@@ -1,7 +1,7 @@
 # STGAN: Spectral-temporal sound effects generation with GAN
 This work is done for the Acoustics 2023 conference. 
 
-We use RNN for the sound generator. The sound generation is guided and conditioned by a loudness envelope and a class label. We use a vanilla WGAN-GP discriminator to compute the adversarial loss on the generated Mel Spectrograms. 
+We use RNN for the sound generator. The sound generation is guided and conditioned by a loudness envelope and a class label. We use a vanilla WGAN-GP discriminator from https://github.com/gcucurull/cond-wgan-gp to compute the adversarial loss on the generated Mel Spectrograms. 
 For the generator loss, we further include a MSE reconstruction loss on the loudness difference between the generated and original Mel Spectrogram.
 
 ## Model architecture
