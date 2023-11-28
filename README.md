@@ -13,6 +13,9 @@ For the generator loss, we further include a MSE reconstruction loss on the loud
 
 
 ## Requirements:
+'''
+pip install -r requirements.txt
+'''
 
 ## Preprocess:
 Configure appropriate parameters for the preprocessing and training using config.json.
