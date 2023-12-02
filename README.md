@@ -7,11 +7,13 @@ The generated Mel spectrogram can be converted back to audio using a pretrained 
 
 ## Model architecture
 ### Training: 
-![image](https://github.com/Reinliu/STGAN/assets/50271800/dc8a4924-ed67-47f0-84e3-aa5580fa04f6)
+![image](https://github.com/Reinliu/STGAN/assets/50271800/b8e3594b-14e5-4a6e-b952-0cafbe35a9a5)
+
 
 
 ### Inference:
-![image](https://github.com/Reinliu/STGAN/assets/50271800/c13c1afa-fd01-4ad3-bb59-1920b997a627)
+![image](https://github.com/Reinliu/STGAN/assets/50271800/6bec786e-b4e0-4f3c-9e37-c69fc739fdca)
+
 
 
 
