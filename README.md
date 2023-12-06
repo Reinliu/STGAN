@@ -1,4 +1,4 @@
-# STGAN: Spectral-temporal sound effects generation with GAN
+# STGAN: Spectral-temporal sound effects generation with RNN-GAN
 This repository provides implementations for a lecture presentation and a conference proceedings at the Acoustics 2023 Sydney conference. 
 
 We use RNN for the sound generator. The sound generation is guided and conditioned by a loudness envelope and a class label. We use a vanilla [WGAN-GP](https://github.com/gcucurull/cond-wgan-gp/) discriminator to compute the adversarial loss on the generated Mel Spectrograms. 
